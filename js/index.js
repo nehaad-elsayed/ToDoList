@@ -121,7 +121,6 @@ async function taskCompleted(id) {
         updateProgress();
       }
       hideLoading();
-     
     }
   });
 }
@@ -160,7 +159,7 @@ async function deleteTask(id) {
         const data = await response.json();
 
         toastr.success("Your Task Deleted");
-        await getAllTasks(); // to display the new list after deleting
+        await getAllTasks(); // to display tasks the new list after deleting
       }
 
       hideLoading();
