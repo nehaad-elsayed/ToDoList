@@ -79,6 +79,7 @@ function displayTasks() {
             </li>`;
   }
   MenuTasksElement.innerHTML = container;
+  updateProgress();
 }
 
 async function taskCompleted(id) {
@@ -117,8 +118,10 @@ async function taskCompleted(id) {
           icon: "success",
         });
         await getAllTasks();
+        updateProgress();
       }
       hideLoading();
+     
     }
   });
 }
@@ -170,4 +173,21 @@ function showLoading() {
 }
 function hideLoading() {
   LoadingElement.classList.add("d-none");
+}
+
+function updateProgress() {
+  let completedTaskNumber = Tasks.filter((task) => task.completed).length;
+  let totalTasks = Tasks.length;
+
+  if (Tasks.length > 0) {
+    document.getElementById("progress").style.width = `${
+      (completedTaskNumber / totalTasks) * 100
+    }%`;
+  } else {
+    document.getElementById("progress").style.width = 0;
+  }
+
+  const Spans = document.querySelectorAll(".right-content span");
+  Spans[0].innerHTML = completedTaskNumber;
+  Spans[1].innerHTML = totalTasks;
 }
